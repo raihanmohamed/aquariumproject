@@ -1,0 +1,39 @@
+{% extends 'fishes/base.html' %}
+{% block title %}All Fishes{% endblock %}
+{% block content %}
+    <h1>All Fishes</h1>
+    <p><a href="{% url 'fish_create' %}" class="btn">+ Add New Fish</a></p>
+
+    {% if fishes %}
+    <table>
+        <thead>
+            <tr>
+                <th>S.no.</th>
+                <th>Fish name</th>
+                <th>Species</th>
+                <th>Tank no.</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fish in fishes %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ fish.fish_name }}</td>
+                <td>{{ fish.species }}</td>
+                <td>{{ fish.tank_number }}</td>
+                <td>{{ fish.price }}</td>
+                <td class="action-links">
+                    <a href="{% url 'fish_update' fish.pk %}" class="btn btn-edit">Edit</a>
+                    <a href="{% url 'fish_delete' fish.pk %}" class="btn btn-danger"
+                       onclick="return confirm('Delete {{ fish.fish_name }}?');">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No fishes added yet. <a href="{% url 'fish_create' %}">Add one now</a>.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'fishes/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="post" id="fishForm" novalidate>
+        {% csrf_token %}
+        <label for="id_fish_name">Enter your fish Name</label>
+        {{ form.fish_name }}
+        <div class="error-text" id="err_fish_name">Fish name cannot be empty.</div>
+
+        <label for="id_species">Enter your fish Species</label>
+        {{ form.species }}
+        <div class="error-text" id="err_species">Species cannot be empty.</div>
+
+        <label for="id_tank_number">Enter your Tank Number</label>
+        {{ form.tank_number }}
+        <div class="error-text" id="err_tank_number">Tank number cannot be empty.</div>
+
+        <label for="id_price">Enter your Price</label>
+        {{ form.price }}
+        <div class="error-text" id="err_price">Price cannot be empty.</div>
+
+        <button type="submit" class="btn">Save</button>
+        <a href="{% url 'fish_list' %}" class="btn btn-danger">Cancel</a>
+    </form>
+
+    <script>
+        document.getElementById('fishForm').addEventListener('submit', function (e) {
+            const fields = ['fish_name', 'species', 'tank_number', 'price'];
+            let valid = true;
+
+            fields.forEach(function (name) {
+                const input = document.getElementById('id_' + name);
+                const errorBox = document.getElementById('err_' + name);
+                if (!input.value.trim()) {
+                    errorBox.style.display = 'block';
+                    input.style.borderColor = '#c0392b';
+                    valid = false;
+                } else {
+                    errorBox.style.display = 'none';
+                    input.style.borderColor = '#c3d0d4';
+                }
+            });
+
+            if (!valid) {
+                e.preventDefault();
+            }
+        });
+    </script>
+{% endblock %}

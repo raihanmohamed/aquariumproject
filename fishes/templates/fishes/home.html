@@ -1,0 +1,14 @@
+{% extends 'fishes/base.html' %}
+{% block title %}Home - Aquarium Shop Inventory System{% endblock %}
+{% block content %}
+    <h1>Aquarium Shop Inventory System</h1>
+    <p>
+        Welcome! This application can help the aquarium shop to keep track of every fish in the shop —
+        its name, species, tank number, and price. You can add new fishes, view the full list,
+        update details, or remove a fish when it is sold or removed.
+    </p>
+    <p>
+        <a href="{% url 'fish_create' %}" class="btn">Add Fish</a>
+        <a href="{% url 'fish_list' %}" class="btn">View Fishes</a>
+    </p>
+{% endblock %}
